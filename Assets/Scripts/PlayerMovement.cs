@@ -169,6 +169,8 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator DashCoroutinne(){
         rb.velocity = Vector2.zero;
         isDashing = true;
+        isJumping = false;
+        groundedTimer = 0;
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 diff = mousePos - transform.position;
         Vector2 dir = ((Vector2)diff).normalized;
