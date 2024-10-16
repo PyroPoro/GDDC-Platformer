@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float numAfterImages;
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] GameObject dashAfterImage;
-
+    [SerializeField] PlayerAnimationController animController;
     
     float x;
     float y;
@@ -45,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     public int numDashes = 1;
     bool isDashing = false;
     bool isSwinging = false;
+    bool isFacingRight = true;
     IEnumerator dashCoroutine;
     PlayerForm currentForm = PlayerForm.SLIME;
     List<Transform> swingHinges = new();
@@ -69,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         }
         Dash();
         UpdateActiveHinge();
+        animController.transform.localScale = new Vector3(isFacingRight? 1 : -1, 1, 1);
     }
 
     void FixedUpdate() {
@@ -104,9 +106,13 @@ public class PlayerMovement : MonoBehaviour
 
         groundedTimer -= Time.deltaTime;
         jumpPressedTimer -= Time.deltaTime;
+
+        animController.UpdateAnimatorParams(Mathf.Abs(rb.velocity.x), rb.velocity.y, groundedTimer > 0, Mathf.Abs(x) > 0, isDashing);
     }
     
     void Jump(){
+        animController.TriggerAnimation(PlayerAnimID.JUMP);
+        animController.StartLanding();
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         groundedTimer = 0;
         isJumping = true;
@@ -124,6 +130,11 @@ public class PlayerMovement : MonoBehaviour
         float acceleration = Mathf.Abs(x) > 0 ? horAcceleration : horDeceleration;
         float appliedAcceleration = Mathf.Pow(Mathf.Abs(velDiff) * acceleration, velocityPower) * Mathf.Sign(velDiff);
         rb.AddForce(appliedAcceleration * Vector2.right);
+        if(rb.velocity.x > 0 && x > 0) {
+            isFacingRight = true;
+        } else if (rb.velocity.x < 0 && x < 0) {
+            isFacingRight = false;
+        }
     }
 
     void VerticalInput() {
@@ -161,19 +172,24 @@ public class PlayerMovement : MonoBehaviour
                 }
                 dashCoroutine = DashCoroutinne();
                 StartCoroutine(dashCoroutine);
+                isDashing = true;
+                isJumping = false;
                 numDashes--;
+                animController.UpdateAnimatorParams(Mathf.Abs(rb.velocity.x), rb.velocity.y, groundedTimer > 0, Mathf.Abs(x) > 0, isDashing);
+                animController.TriggerAnimation(PlayerAnimID.DASH);
+                animController.StartLanding();
             }
         }
     }
 
     IEnumerator DashCoroutinne(){
         rb.velocity = Vector2.zero;
-        isDashing = true;
-        isJumping = false;
         groundedTimer = 0;
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 diff = mousePos - transform.position;
         Vector2 dir = ((Vector2)diff).normalized;
+        transform.right = dir.x >= 0 ? dir : -dir;
+        isFacingRight = dir.x > 0;
         rb.AddForce(dir * dashSpeed, ForceMode2D.Impulse);
         for(int i = 0; i < numAfterImages; i++){
             GameObject afterImage = Instantiate(dashAfterImage, transform.position, transform.rotation);
@@ -183,6 +199,7 @@ public class PlayerMovement : MonoBehaviour
         }
         rb.AddForce(-rb.velocity.y * postDashCorrection * Vector2.up, ForceMode2D.Impulse);
         isDashing = false;
+        transform.right = Vector3.right;
     }
 
     
