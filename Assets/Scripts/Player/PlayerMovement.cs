@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float groundedTimerBuffer;
     [SerializeField] float dashDuration;
     [SerializeField] float dashSpeed;
+    [SerializeField] float dashStartDelay;
     [SerializeField] float postDashCorrection;
     [SerializeField] float numAfterImages;
     [SerializeField] SpriteRenderer spriteRenderer;
@@ -209,6 +210,9 @@ public class PlayerMovement : MonoBehaviour
         Vector2 dir = ((Vector2)diff).normalized;
         transform.right = dir.x >= 0 ? dir : -dir;
         isFacingRight = dir.x > 0;
+
+        yield return new WaitForSeconds(dashStartDelay);
+
         rb.AddForce(dir * dashSpeed, ForceMode2D.Impulse);
         for(int i = 0; i < numAfterImages; i++){
             GameObject afterImage = Instantiate(dashAfterImage, transform.position, transform.rotation);

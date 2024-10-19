@@ -335,6 +335,7 @@ MonoBehaviour:
   groundedTimerBuffer: 0.2
   dashDuration: 0.2
   dashSpeed: 15
+  dashStartDelay: 0.1
   postDashCorrection: 0.7
   numAfterImages: 3
   spriteRenderer: {fileID: 8375944939849086650}

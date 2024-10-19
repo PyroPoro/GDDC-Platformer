@@ -97,5 +97,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c4f3f04305156240becdc50356a833d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shockwaveDuration: 0.5
+  shockwaveDuration: 1
   mat: {fileID: 2100000, guid: 5e867112e71bf9d4489c6a2680d04cf1, type: 2}
