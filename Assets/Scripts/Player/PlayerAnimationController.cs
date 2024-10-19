@@ -8,15 +8,14 @@ public enum PlayerAnimID {
     JUMP = 1
 }
 
-public class PlayerAnimationController : MonoBehaviour
-{
+public class PlayerAnimationController : MonoBehaviour {
     [SerializeField] Animator anim;
     public void TriggerAnimation(PlayerAnimID animID) {
         anim.SetInteger("AnimID", (int)animID);
         anim.SetTrigger("ChangeState");
     }
 
-    public void UpdateAnimatorParams(float xSpeed, float yVel, bool isGrounded, bool horizontalInput, bool isDashing){
+    public void UpdateAnimatorParams(float xSpeed, float yVel, bool isGrounded, bool horizontalInput, bool isDashing) {
         anim.SetFloat("xSpeed", xSpeed);
         anim.SetFloat("yVel", yVel);
         anim.SetBool("IsGrounded", isGrounded);
@@ -24,10 +23,10 @@ public class PlayerAnimationController : MonoBehaviour
         anim.SetBool("IsDashing", isDashing);
     }
 
-    public void StartLanding(){
+    public void StartLanding() {
         anim.SetBool("IsLanding", true);
     }
-    public void EndLanding(){
+    public void EndLanding() {
         anim.SetBool("IsLanding", false);
     }
 }

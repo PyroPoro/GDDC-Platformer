@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerVFXController : MonoBehaviour
-{
+public class PlayerVFXController : MonoBehaviour {
     [SerializeField] PlayerMovement pm;
     [SerializeField] Transform playerBottom;
     [SerializeField] GameObject jumpParticles;
@@ -11,7 +10,7 @@ public class PlayerVFXController : MonoBehaviour
     [SerializeField] GameObject dashShockwave;
     [SerializeField] GameObject landingParticles;
 
-    void Start(){
+    void Start() {
         pm.OnJump += SpawnJumpParticles;
         pm.OnLanding += SpawnLandingParticles;
         pm.OnDashStart += EnableDashParticles;
@@ -20,24 +19,24 @@ public class PlayerVFXController : MonoBehaviour
         DisableDashParticles();
     }
 
-    void SpawnJumpParticles(){
+    void SpawnJumpParticles() {
         Instantiate(jumpParticles, playerBottom.position, Quaternion.identity);
     }
 
-    void SpawnLandingParticles(){
+    void SpawnLandingParticles() {
         Instantiate(landingParticles, playerBottom.position, Quaternion.identity);
     }
 
-    void EnableDashParticles(){
+    void EnableDashParticles() {
         dashParticles.GetComponent<ParticleSystem>().Play();
     }
 
-    void DisableDashParticles(){
+    void DisableDashParticles() {
         dashParticles.GetComponent<ParticleSystem>().Stop();
     }
 
-    void SpawnShockWave(){
+    void SpawnShockWave() {
         Instantiate(dashShockwave, transform.position, Quaternion.identity);
     }
-    
+
 }

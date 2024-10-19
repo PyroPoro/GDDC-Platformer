@@ -4,20 +4,19 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SignTextBubble : MonoBehaviour
-{
+public class SignTextBubble : MonoBehaviour {
     [SerializeField] SpriteRenderer topBubble;
     [SerializeField] SpriteRenderer botBubble;
     [SerializeField] TMP_Text text;
     [SerializeField] float fadeDuration;
-    
+
     IEnumerator textBubbleToggle;
 
-    public void ToggleTextBubble(bool isShow){
-        if(textBubbleToggle != null) {
+    public void ToggleTextBubble(bool isShow) {
+        if (textBubbleToggle != null) {
             StopCoroutine(textBubbleToggle);
         }
-        if(isShow){
+        if (isShow) {
             textBubbleToggle = ShowTextBubble();
         } else {
             textBubbleToggle = HideTextBubble();
@@ -25,7 +24,7 @@ public class SignTextBubble : MonoBehaviour
         StartCoroutine(textBubbleToggle);
     }
 
-    void UpdateBubbleAlpha(float a){
+    void UpdateBubbleAlpha(float a) {
         Color c = topBubble.color;
         topBubble.color = new Color(c.r, c.g, c.b, a);
         c = botBubble.color;
@@ -33,11 +32,11 @@ public class SignTextBubble : MonoBehaviour
         c = text.color;
         text.color = new Color(c.r, c.g, c.b, a);
     }
-    IEnumerator ShowTextBubble(){
+    IEnumerator ShowTextBubble() {
         float timer = 0;
         float startA = topBubble.color.a;
-        while(timer < fadeDuration){
-            float a = Mathf.Lerp(startA, 1, timer/fadeDuration);
+        while (timer < fadeDuration) {
+            float a = Mathf.Lerp(startA, 1, timer / fadeDuration);
             UpdateBubbleAlpha(a);
             timer += Time.deltaTime;
             yield return new WaitForEndOfFrame();
@@ -45,11 +44,11 @@ public class SignTextBubble : MonoBehaviour
         UpdateBubbleAlpha(1);
     }
 
-    IEnumerator HideTextBubble(){
+    IEnumerator HideTextBubble() {
         float timer = 0;
         float startA = topBubble.color.a;
-        while(timer < fadeDuration){
-            float a = Mathf.Lerp(startA, 0, timer/fadeDuration);
+        while (timer < fadeDuration) {
+            float a = Mathf.Lerp(startA, 0, timer / fadeDuration);
             UpdateBubbleAlpha(a);
             timer += Time.deltaTime;
             yield return new WaitForEndOfFrame();
