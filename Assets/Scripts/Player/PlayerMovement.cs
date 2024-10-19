@@ -37,6 +37,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject dashAfterImage;
     [SerializeField] PlayerAnimationController animController;
     
+    public event Action OnDashStart = delegate{};
+    public event Action OnDashEnd = delegate{};
+    public event Action OnLanding = delegate{};
+    public event Action OnJump = delegate{};
+
     float x;
     float y;
     bool isJumping;
@@ -46,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
     bool isDashing = false;
     bool isSwinging = false;
     bool isFacingRight = true;
+    bool isLanded = true;
     IEnumerator dashCoroutine;
     PlayerForm currentForm = PlayerForm.SLIME;
     List<Transform> swingHinges = new();
@@ -78,12 +84,20 @@ public class PlayerMovement : MonoBehaviour
             HorizontalInput();
             VerticalInput();
         }
-
-        if (Physics2D.OverlapBox(groundCheck.position, groundCheckBoxSize, 0, groundLayer)) {
+        Collider2D col = Physics2D.OverlapBox(groundCheck.position, groundCheckBoxSize, 0, groundLayer);
+        if (col != null) {
             groundedTimer = groundedTimerBuffer;
             if(!isDashing){
                 numDashes = 1;
             }
+            if(!isLanded) {
+                isLanded = true;
+                if(!col.CompareTag("Platform")) {
+                    OnLanding();
+                }
+            }
+        } else {
+            isLanded = false;
         }
 
         if ((groundedTimer > 0 || isSwinging) && jumpPressedTimer > 0 && !isJumping) {
@@ -92,6 +106,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (rb.velocity.y < 0 && isJumping) {
             isJumping = false;
+        } else if(Mathf.Abs(rb.velocity.y) < 0.01f && isLanded) {
+            animController.EndLanding();
         }
 
         rb.gravityScale =  isDashing ? 0 : rb.velocity.y > 0 ? gravityScale : gravityScale * fallSpeedMultiplier;
@@ -116,9 +132,11 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         groundedTimer = 0;
         isJumping = true;
+        OnJump();
         if(TryGetComponent<HingeJoint2D>(out var hinge)){
             Destroy(hinge);
             closestHinge.GetComponent<SwingHinge>().DisconnectObject();
+            closestHinge = null;
             isSwinging = false;
         }
     }
@@ -178,6 +196,7 @@ public class PlayerMovement : MonoBehaviour
                 animController.UpdateAnimatorParams(Mathf.Abs(rb.velocity.x), rb.velocity.y, groundedTimer > 0, Mathf.Abs(x) > 0, isDashing);
                 animController.TriggerAnimation(PlayerAnimID.DASH);
                 animController.StartLanding();
+                OnDashStart();
             }
         }
     }
@@ -200,6 +219,7 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(-rb.velocity.y * postDashCorrection * Vector2.up, ForceMode2D.Impulse);
         isDashing = false;
         transform.right = Vector3.right;
+        OnDashEnd();
     }
 
     
@@ -230,7 +250,9 @@ public class PlayerMovement : MonoBehaviour
 
     void UpdateActiveHinge(){
         if(swingHinges.Count == 0) {
-            closestHinge = null;
+            if(!isSwinging){
+                closestHinge = null; 
+            }
             return;
         }
         

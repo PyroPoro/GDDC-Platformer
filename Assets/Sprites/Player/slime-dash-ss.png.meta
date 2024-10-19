@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: eb63ed6c2ab92f84e87e27ae1dd63fc2
+guid: 307fe279174536548a06e4d7b9905cb1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: slime-dash-ss_0
+      name: slime-dash-ss2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d41a4f9d8ef7604cac53fa95d3c3bbf
-      internalID: 1106528341
+      spriteID: c7759380f1433b243ba102e232fee030
+      internalID: -1486810089
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime-dash-ss_1
+      name: slime-dash-ss2_1
       rect:
         serializedVersion: 2
         x: 32
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 541ed7448aa6fbe41b894043959b5a86
-      internalID: -183640307
+      spriteID: 2d5669743d52a2e47bf08d40da863627
+      internalID: 1978305607
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime-dash-ss_2
+      name: slime-dash-ss2_2
       rect:
         serializedVersion: 2
         x: 64
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93b03d84af1af9b4e8aba070ac45083f
-      internalID: 985105971
+      spriteID: 3f272efe3fae8ad429397b3e7aba15e0
+      internalID: -1596587223
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime-dash-ss_3
+      name: slime-dash-ss2_3
       rect:
         serializedVersion: 2
         x: 96
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c9cdfc13b3e0a14ebdab7b943beb91e
-      internalID: -755434352
+      spriteID: b9190f3b3fc73a844a3f3bc706976979
+      internalID: 1746694232
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime-dash-ss_4
+      name: slime-dash-ss2_4
       rect:
         serializedVersion: 2
         x: 128
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f8de9b76178fc7438f787de0f69e367
-      internalID: 482461300
+      spriteID: 56e04a75ba9f27244bb55f7365c22fa1
+      internalID: 187881704
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime-dash-ss_5
+      name: slime-dash-ss2_5
       rect:
         serializedVersion: 2
         x: 160
@@ -242,14 +242,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 51e0b41c36902be428d4de66f381e94d
-      internalID: -1840379625
+      spriteID: ed5956f20ae20b144aa53358933d0f6a
+      internalID: -1601920069
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime-dash-ss_6
+      name: slime-dash-ss2_6
       rect:
         serializedVersion: 2
         x: 192
@@ -263,14 +263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d3efac14d923414e8a34097914a9035
-      internalID: -1203188122
+      spriteID: 674427e5b66831a4083edf56dc3289d8
+      internalID: -608500976
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime-dash-ss_7
+      name: slime-dash-ss2_7
       rect:
         serializedVersion: 2
         x: 224
@@ -284,14 +284,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8100ad1d316df9b4f8480e622b8c6fda
-      internalID: 1715167762
+      spriteID: 85645476246565041ac6d284a9fc2b65
+      internalID: 1512619565
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime-dash-ss_8
+      name: slime-dash-ss2_8
       rect:
         serializedVersion: 2
         x: 256
@@ -305,14 +305,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e098aae00503a44d9ad476831bc4872
-      internalID: -1735129488
+      spriteID: 8b97ac8908189c846a27f1dfff9cf22c
+      internalID: 1722967353
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime-dash-ss_9
+      name: slime-dash-ss2_9
       rect:
         serializedVersion: 2
         x: 288
@@ -326,14 +326,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b19926fe7e918a6448d5eec884ed6f61
-      internalID: 1434698980
+      spriteID: f92c73630fbc07744891521ebea9e8af
+      internalID: 753920844
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime-dash-ss_10
+      name: slime-dash-ss2_10
       rect:
         serializedVersion: 2
         x: 320
@@ -347,14 +347,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f9c4a0a6dec1d848932201b30f5af7e
-      internalID: 1862958976
+      spriteID: 7cf77c8f15bceb0439a9046bdac81fbe
+      internalID: -438621264
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime-dash-ss_11
+      name: slime-dash-ss2_11
       rect:
         serializedVersion: 2
         x: 352
@@ -368,14 +368,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ceea67bad25c46848a0eaec001bd54b6
-      internalID: -1844332127
+      spriteID: 9b0bdbb682084824ab38958492aae2e6
+      internalID: -787015010
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime-dash-ss_12
+      name: slime-dash-ss2_12
       rect:
         serializedVersion: 2
         x: 384
@@ -389,14 +389,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e32ce8271746baa49a4843508cc0bf61
-      internalID: 1503101586
+      spriteID: a8fba53651592d4448acc5859fdacf98
+      internalID: 1181508634
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime-dash-ss_13
+      name: slime-dash-ss2_13
       rect:
         serializedVersion: 2
         x: 416
@@ -410,8 +410,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 772577c64dda89f4cb87c560b3597602
-      internalID: 704028056
+      spriteID: fe69fd1c308ea644c87c5a4d3d6c849b
+      internalID: -940297361
       vertices: []
       indices: 
       edges: []
@@ -427,20 +427,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      slime-dash-ss_0: 1106528341
-      slime-dash-ss_1: -183640307
-      slime-dash-ss_10: 1862958976
-      slime-dash-ss_11: -1844332127
-      slime-dash-ss_12: 1503101586
-      slime-dash-ss_13: 704028056
-      slime-dash-ss_2: 985105971
-      slime-dash-ss_3: -755434352
-      slime-dash-ss_4: 482461300
-      slime-dash-ss_5: -1840379625
-      slime-dash-ss_6: -1203188122
-      slime-dash-ss_7: 1715167762
-      slime-dash-ss_8: -1735129488
-      slime-dash-ss_9: 1434698980
+      slime-dash-ss2_0: -1486810089
+      slime-dash-ss2_1: 1978305607
+      slime-dash-ss2_10: -438621264
+      slime-dash-ss2_11: -787015010
+      slime-dash-ss2_12: 1181508634
+      slime-dash-ss2_13: -940297361
+      slime-dash-ss2_2: -1596587223
+      slime-dash-ss2_3: 1746694232
+      slime-dash-ss2_4: 187881704
+      slime-dash-ss2_5: -1601920069
+      slime-dash-ss2_6: -608500976
+      slime-dash-ss2_7: 1512619565
+      slime-dash-ss2_8: 1722967353
+      slime-dash-ss2_9: 753920844
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
