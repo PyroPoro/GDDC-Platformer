@@ -42,7 +42,6 @@ public class SwingHinge : MonoBehaviour {
         lr.enabled = false;
     }
 
-
     void UpdateLinePosition() {
         lr.SetPositions(new Vector3[] { transform.position, attachedObject.position });
     }

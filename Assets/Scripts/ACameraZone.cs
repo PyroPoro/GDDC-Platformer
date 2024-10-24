@@ -7,6 +7,7 @@ public class ACameraZone : MonoBehaviour {
     public float cameraTransitionDuration;
     IEnumerator cameraLerpCoroutine;
     public float cameraSmoothTime;
+    public Transform respawnPoint;
     public void OnEnterCameraZone(Transform camera) {
         if (cameraLerpCoroutine != null) {
             StopCoroutine(cameraLerpCoroutine);

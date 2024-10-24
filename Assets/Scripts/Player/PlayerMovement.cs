@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] GameObject dashAfterImage;
     [SerializeField] PlayerAnimationController animController;
+    [SerializeField] PlayerHealthManager healthManager;
 
     public event Action OnDashStart = delegate { };
     public event Action OnDashEnd = delegate { };
@@ -52,16 +53,20 @@ public class PlayerMovement : MonoBehaviour {
     bool isSwinging = false;
     bool isFacingRight = true;
     bool isLanded = true;
+    bool inputEnabled = true;
     IEnumerator dashCoroutine;
     PlayerForm currentForm = PlayerForm.SLIME;
     List<Transform> swingHinges = new();
     Transform closestHinge;
 
     void Start() {
-
+        healthManager.OnDeath += DisablePlayerInput;
+        healthManager.OnRespawn += EnablePlayerInput;
     }
 
     void Update() {
+        if(!inputEnabled) return;
+
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");
 
@@ -80,6 +85,8 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void FixedUpdate() {
+        if(!inputEnabled) return;
+
         if (!isDashing && !isSwinging) {
             HorizontalInput();
             VerticalInput();
@@ -135,8 +142,7 @@ public class PlayerMovement : MonoBehaviour {
         OnJump();
         if (TryGetComponent<HingeJoint2D>(out var hinge)) {
             Destroy(hinge);
-            closestHinge.GetComponent<SwingHinge>().DisconnectObject();
-            closestHinge = null;
+            DisconnectFromHinge();
             isSwinging = false;
         }
     }
@@ -272,5 +278,24 @@ public class PlayerMovement : MonoBehaviour {
         }
         closestHinge.GetComponent<SwingHinge>().SetActive(true);
         SwingInput();
+    }
+
+    void DisablePlayerInput() {
+        rb.velocity = Vector3.zero;
+        rb.isKinematic = true;
+        inputEnabled = false;
+        DisconnectFromHinge();
+    }
+
+    void DisconnectFromHinge(){
+        if(closestHinge != null) {
+            closestHinge.GetComponent<SwingHinge>().DisconnectObject();
+            closestHinge = null;
+        }
+    }
+
+    void EnablePlayerInput() {
+        inputEnabled = true;
+        rb.isKinematic = false;
     }
 }

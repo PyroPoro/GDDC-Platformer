@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 2138415862969202834}
   - component: {fileID: 3335852822174522724}
   - component: {fileID: 7290470649552236819}
+  - component: {fileID: 8317981469326742968}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -339,6 +340,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 8375944939849086650}
   dashAfterImage: {fileID: 8576231111770616468, guid: 3c923003cc5ef9f49a1acebe33eb846c, type: 3}
   animController: {fileID: 4809811222135510425}
+  healthManager: {fileID: 8317981469326742968}
   numDashes: 1
 --- !u!114 &2138415862969202834
 MonoBehaviour:
@@ -420,6 +422,18 @@ MonoBehaviour:
   dashParticles: {fileID: 5620706685580351574}
   dashShockwave: {fileID: 4666071111060658819, guid: 7d187677a258d21459b01296215d8ac5, type: 3}
   landingParticles: {fileID: 801895785922181608, guid: a0a1f35ea0c112e48ad17aa23ceb9c58, type: 3}
+--- !u!114 &8317981469326742968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7033096104706981484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5015ed6d3cb337844b9609469a95dbd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4981021889639489982
 PrefabInstance:
   m_ObjectHideFlags: 0
