@@ -9,7 +9,6 @@ enum PlayerForm {
     FROG,
 }
 
-
 public class PlayerMovement : MonoBehaviour {
     [SerializeField] Rigidbody2D rb;
     [SerializeField] float maxHorVelocity;
@@ -61,7 +60,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void Start() {
         healthManager.OnDeath += DisablePlayerInput;
-        healthManager.OnRespawn += EnablePlayerInput;
+        animController.OnRespawnFinish += EnablePlayerInput;
     }
 
     void Update() {
@@ -284,7 +283,11 @@ public class PlayerMovement : MonoBehaviour {
         rb.velocity = Vector3.zero;
         rb.isKinematic = true;
         inputEnabled = false;
-        DisconnectFromHinge();
+        if (TryGetComponent<HingeJoint2D>(out var hinge)) {
+            Destroy(hinge);
+            DisconnectFromHinge();
+            isSwinging = false;
+        }
     }
 
     void DisconnectFromHinge(){
@@ -297,5 +300,6 @@ public class PlayerMovement : MonoBehaviour {
     void EnablePlayerInput() {
         inputEnabled = true;
         rb.isKinematic = false;
+        isSwinging = false;
     }
 }
