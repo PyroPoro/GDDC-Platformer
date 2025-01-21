@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 6817077103569168066}
+  playerHealthManager: {fileID: 8317981469326742968}
 --- !u!1 &3635094902656439671
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +331,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  jumpPressedTimerBuffer: 0.1
+  jumpPressedTimerBuffer: 0.2
   groundedTimerBuffer: 0.2
   dashDuration: 0.2
   dashSpeed: 15
@@ -434,6 +435,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5015ed6d3cb337844b9609469a95dbd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animController: {fileID: 4809811222135510425}
+  respawnDuration: 1.5
 --- !u!1001 &4981021889639489982
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -445,6 +448,14 @@ PrefabInstance:
     - target: {fileID: 801895785922181608, guid: 4de9dab4b402193489746289559d2a9b, type: 3}
       propertyPath: m_Name
       value: DashParticles
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590636262896146220, guid: 4de9dab4b402193489746289559d2a9b, type: 3}
+      propertyPath: stopAction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5590636262896146220, guid: 4de9dab4b402193489746289559d2a9b, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5590636262896146220, guid: 4de9dab4b402193489746289559d2a9b, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
