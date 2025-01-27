@@ -7,21 +7,21 @@ public class PlayerMovementAdvanced : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rb;
     [SerializeField] float maxHorVelocity;
-    [SerializeField] float maxVerVelocity;
-    [SerializeField] float maxDashVelocity;
     [SerializeField] float horAcceleration;
     [SerializeField] float horDeceleration;
-    [SerializeField] float frictionStopSpeed;
     [SerializeField] float velocityPower;
     [SerializeField] float fallSpeedMultiplier;
     [SerializeField] float gravityScale;
     [SerializeField] float jumpCutMultiplier;
     [SerializeField] float jumpForce;
+    [SerializeField] float jumpPressedTimerBuffer;
+    [SerializeField] float groundedTimerBuffer;
+    [SerializeField] float maxVerVelocity;
+    [SerializeField] float maxDashVelocity;
+    [SerializeField] float frictionStopSpeed;
     [SerializeField] Vector2 groundCheckBoxSize;
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundLayer;
-    [SerializeField] float jumpPressedTimerBuffer;
-    [SerializeField] float groundedTimerBuffer;
     [SerializeField] float dashDuration;
     [SerializeField] float dashSpeed;
     [SerializeField] float dashStartDelay;
@@ -37,7 +37,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public event Action OnJump = delegate { };
 
     float x;
-    float y;
     bool isJumping;
     float jumpPressedTimer;
     float groundedTimer;
@@ -45,140 +44,65 @@ public class PlayerMovementAdvanced : MonoBehaviour
     bool isDashing = false;
     bool isFacingRight = true;
     bool isLanded = true;
-    bool inputEnabled = true;
     IEnumerator dashCoroutine;
 
     void Update() {
-        if(!inputEnabled) return;
+        //Accelerationn Step 1 TODO
 
-        x = Input.GetAxis("Horizontal");
-        y = Input.GetAxis("Vertical");
+        //Jump Step 1 TODO
 
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            jumpPressedTimer = jumpPressedTimerBuffer;
-        }
-        if (Input.GetKeyUp(KeyCode.Space)) {
-            if (rb.velocity.y > 0 && isJumping) {
-                rb.AddForce((1 - jumpCutMultiplier) * rb.velocity.y * Vector2.down, ForceMode2D.Impulse);
-            }
-            jumpPressedTimer = 0;
-        }
         Dash();
+        
         animController.transform.localScale = new Vector3(isFacingRight ? 1 : -1, 1, 1);
     }
 
     void FixedUpdate() {
-        if(!inputEnabled) return;
 
-        if (!isDashing) {
-            HorizontalInput();
-        }
+        // Acceleration Step 3 TODO
+        // if (!isDashing) {
+        //     HorizontalInput();
+        // }
         
-        Collider2D col = Physics2D.OverlapBox(groundCheck.position, groundCheckBoxSize, 0, groundLayer);
-        if (col != null) {
-            groundedTimer = groundedTimerBuffer;
-            if (!isDashing) {
-                numDashes = 1;
-            }
-            if (!isLanded) {
-                isLanded = true;
-                if (!col.CompareTag("Platform")) {
-                    OnLanding();
-                }
-            }
-        } else {
-            isLanded = false;
-        }
+        // Coyote Time
 
-        if (groundedTimer > 0 && jumpPressedTimer > 0 && !isJumping) {
-            Jump();
-        }
+        // Jump Step 3 TODO
 
+        // -- animation things -- //
         if (rb.velocity.y < 0 && isJumping) {
             isJumping = false;
         } else if (Mathf.Abs(rb.velocity.y) < 0.01f && isLanded) {
             animController.EndLanding();
         }
+        
+        // Fixing Floatiness
+        // rb.gravityScale = isDashing ? 0 : rb.velocity.y > 0 ? gravityScale : gravityScale * fallSpeedMultiplier;
 
-        rb.gravityScale = isDashing ? 0 : rb.velocity.y > 0 ? gravityScale : gravityScale * fallSpeedMultiplier;
+        // Artificial Friction
 
-        if (groundedTimer > 0 && x == 0) {
-            float friction = Mathf.Min(Mathf.Abs(rb.velocity.x), Mathf.Abs(frictionStopSpeed)) * Mathf.Sign(rb.velocity.x);
-            rb.AddForce(Vector2.right * -friction, ForceMode2D.Impulse);
-        }
+        // Clamping Artificial Velocity
+        // rb.velocity = new(Mathf.Clamp(rb.velocity.x, -maxDashVelocity, maxDashVelocity), Mathf.Clamp(rb.velocity.y, -maxVerVelocity, maxVerVelocity));
 
+        // groundedTimer -= Time.deltaTime;
+        // jumpPressedTimer -= Time.deltaTime;
 
-        rb.velocity = new(Mathf.Clamp(rb.velocity.x, -maxDashVelocity, maxDashVelocity), Mathf.Clamp(rb.velocity.y, -maxVerVelocity, maxVerVelocity));
-
-        groundedTimer -= Time.deltaTime;
-        jumpPressedTimer -= Time.deltaTime;
-
+        // -- animation things -- //
         animController.UpdateAnimatorParams(Mathf.Abs(rb.velocity.x), rb.velocity.y, groundedTimer > 0, Mathf.Abs(x) > 0, isDashing);
     }
 
     void Jump() {
-        animController.TriggerAnimation(PlayerAnimID.JUMP);
-        animController.StartLanding();
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        groundedTimer = 0;
-        isJumping = true;
-        OnJump();
+        // Jump Step 2
     }
 
     void HorizontalInput() {
-        float targetVel = x * maxHorVelocity;
-        float currVel = rb.velocity.x;
-        float velDiff = targetVel - currVel;
-        float acceleration = Mathf.Abs(x) > 0 ? horAcceleration : horDeceleration;
-        float appliedAcceleration = Mathf.Pow(Mathf.Abs(velDiff) * acceleration, velocityPower) * Mathf.Sign(velDiff);
-        rb.AddForce(appliedAcceleration * Vector2.right);
-        if (rb.velocity.x > 0 && x > 0) {
-            isFacingRight = true;
-        } else if (rb.velocity.x < 0 && x < 0) {
-            isFacingRight = false;
-        }
+        //Acceleration Step 2 TODO
     }
 
     void Dash() {
-        if (Input.GetKeyDown(KeyCode.LeftShift)) {
-            if (numDashes > 0) {
-                if (dashCoroutine != null) {
-                    StopCoroutine(dashCoroutine);
-                }
-                dashCoroutine = DashCoroutinne();
-                StartCoroutine(dashCoroutine);
-                isDashing = true;
-                isJumping = false;
-                numDashes--;
-                animController.UpdateAnimatorParams(Mathf.Abs(rb.velocity.x), rb.velocity.y, groundedTimer > 0, Mathf.Abs(x) > 0, isDashing);
-                animController.TriggerAnimation(PlayerAnimID.DASH);
-                animController.StartLanding();
-                OnDashStart();
-            }
-        }
+        // TODO
     }
 
-    IEnumerator DashCoroutinne() {
-        rb.velocity = Vector2.zero;
-        groundedTimer = 0;
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 diff = mousePos - transform.position;
-        Vector2 dir = ((Vector2)diff).normalized;
-        transform.right = dir.x >= 0 ? dir : -dir;
-        isFacingRight = dir.x > 0;
-
-        yield return new WaitForSeconds(dashStartDelay);
-
-        rb.AddForce(dir * dashSpeed, ForceMode2D.Impulse);
-        for (int i = 0; i < numAfterImages; i++) {
-            GameObject afterImage = Instantiate(dashAfterImage, transform.position, transform.rotation);
-            afterImage.transform.localScale = spriteRenderer.transform.localScale;
-            afterImage.GetComponent<DashAfterImage>().Initialize(spriteRenderer.sprite, spriteRenderer.color);
-            yield return new WaitForSeconds(dashDuration / numAfterImages);
-        }
-        rb.AddForce(-rb.velocity.y * postDashCorrection * Vector2.up, ForceMode2D.Impulse);
-        isDashing = false;
-        transform.right = Vector3.right;
-        OnDashEnd();
+    IEnumerator DashCoroutine() {
+        // delete this line when you implement this coroutine
+        yield return null;
     }
 }
