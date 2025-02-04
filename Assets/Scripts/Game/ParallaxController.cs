@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ParallaxController : MonoBehaviour {
-    //[SerializeField] List<GameObject> backgrounds = new();
     [SerializeField] Transform cam;
     [SerializeField] float scrollingSpeed;
     [SerializeField] float backgroundWidth;
